@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\API\Controllers\Auth;
+namespace App\Http\Api\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Src\Auth\Actions\LoginAction;

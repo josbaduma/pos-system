@@ -30,7 +30,7 @@ class LoginAction
         /** @var User&object{decrypted_password: string} $user */
         $user = User::query()
             ->addSelect('*')
-            ->selectRaw("PGP_SYM_DECRYPT(password, '$decryptPasswordToken') as decrypted_password")
+            ->selectRaw("AES_DECRYPT(password, '$decryptPasswordToken') as decrypted_password")
             ->where('email', $email)
             ->first();
 

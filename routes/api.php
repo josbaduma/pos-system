@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\API\Controllers\Auth\LoginController;
+use App\Http\Api\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('auth')->middleware([])->group(function (): void {
-
-    Route::post('/login', LoginController::class)->name('auth.login');
+    Route::post('/login', [LoginController::class, '__invoke'])->name('auth.login');
 });
