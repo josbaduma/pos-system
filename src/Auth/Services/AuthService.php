@@ -78,13 +78,4 @@ class AuthService
 
         return $decoded;
     }
-
-    public function blacklistToken(User $user, string $jwt): void
-    {
-        $payload = $this->decodeJwt($jwt);
-        $user->blacklistedTokens()->create([
-            'token' => $jwt,
-            'expires_at' => $payload->exp
-        ]);
-    }
 }

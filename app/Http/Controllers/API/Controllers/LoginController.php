@@ -9,7 +9,9 @@ use Src\Auth\Actions\LoginAction;
 
 class LoginController
 {
-    public function __construct(private readonly LoginAction $loginAction) {}
+    public function __construct(private readonly LoginAction $loginAction)
+    {
+    }
 
     public function __invoke(Request $request)
     {

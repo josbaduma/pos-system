@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth')->middleware([])->group(function () {
+Route::prefix('auth')->middleware([])->group(function (): void {
 
     Route::post('/login', LoginController::class)->name('auth.login');
 });
