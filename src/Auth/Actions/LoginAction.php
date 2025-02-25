@@ -25,7 +25,7 @@ class LoginAction
      */
     public function execute(string $email, string $password): LoginResponseDTO
     {
-        $decryptPasswordToken = config('database.connections.legacy-pgsql.encryption_key');
+        $decryptPasswordToken = config('database.connections.mysql.encryption_key');
 
         /** @var User&object{decrypted_password: string} $user */
         $user = User::query()
@@ -44,7 +44,6 @@ class LoginAction
         Auth::login($user);
 
         $token = $this->authService->generateAccessToken($user);
-
 
         return new LoginResponseDTO(
             accessToken: $token,

@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Api\Controllers\Auth;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Src\Auth\Actions\LoginAction;
 
 class LoginController
 {
-    public function __construct(private readonly LoginAction $loginAction)
+    public function __invoke(LoginRequest $request, LoginAction $loginAction)
     {
-    }
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-    public function __invoke(Request $request)
-    {
-        $email = $request->string('email')->toString();
-        $password = $request->string('password')->toString();
-
-        $loginResponse = $this->loginAction->execute($email, $password);
+        $loginResponse = $loginAction->execute($email, $password);
 
         return response()->json([
             'accessToken' => $loginResponse->accessToken,
