@@ -13,9 +13,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap services.
@@ -27,6 +25,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
         });
+        $this->configureRateLimiting();
     }
 
     /**

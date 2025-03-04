@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\LegacyBlacklistedToken;
-use App\Models\LegacyUser;
+use App\Models\User;
 use Closure;
 use Firebase\JWT\JWTExceptionWithPayloadInterface;
 use Illuminate\Http\JsonResponse;
@@ -19,8 +18,7 @@ class JwtMiddleware
 {
     public function __construct(
         private readonly AuthService $authService,
-    ) {
-    }
+    ) {}
 
     /**
      * Handle an incoming request.
@@ -38,10 +36,6 @@ class JwtMiddleware
             throw new HttpException(401, 'Unauthorized. Token not found');
         }
 
-        if (LegacyBlacklistedToken::whereToken($jwt)->exists()) {
-            throw new HttpException(401, 'Unauthorized. Token is blacklisted');
-        }
-
         try {
             $decoded = $this->authService->decodeOrFail($jwt, $scopes);
         } catch (JWTExceptionWithPayloadInterface $e) {
@@ -50,7 +44,7 @@ class JwtMiddleware
             throw new HttpException(400, 'JWT Token malformed');
         }
 
-        $user = LegacyUser::find($decoded->sub);
+        $user = User::find($decoded->sub);
 
         if (! $user) {
             throw new HttpException(404, "User $decoded->sub not found");

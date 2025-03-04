@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +14,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Jose Badilla',
-            'email' => 'josebaduma@gmail.com',
-            'password' => Hash::make('Z30sB4d1l4'),
-            'role' => 'admin'
-        ]);
+        $secretKey = config('database.connections.mysql.encryption_key');
+
+        $users = [
+            [
+                'email' => 'josebaduma@gmail.com',
+                'password' => 'Z30sB4d1l4#',
+                'name' => 'Jose Badilla',
+            ],
+        ];
+
+        foreach ($users as $user) {
+            DB::table('users')->insert([
+                'email' => $user['email'],
+                'password' => DB::raw("AES_ENCRYPT('{$user['password']}', '{$secretKey}')"),
+                'name' => $user['name'],
+            ]);
+        }
     }
 }
