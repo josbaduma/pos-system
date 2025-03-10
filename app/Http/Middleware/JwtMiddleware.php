@@ -2,55 +2,30 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
-use Firebase\JWT\JWTExceptionWithPayloadInterface;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
+use Exception;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Src\Auth\Services\AuthService;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use UnexpectedValueException;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 class JwtMiddleware
 {
-    public function __construct(
-        private readonly AuthService $authService,
-    ) {}
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param Closure(Request): (Response|RedirectResponse) $next
-     * @param array<string>                                 $scopes
-     *
-     * @return Response|RedirectResponse|JsonResponse
-     */
-    public function handle(Request $request, Closure $next, ...$scopes)
+    public function handle(Request $request, Closure $next)
     {
-        $jwt = $request->bearerToken();
+        $token = $request->bearerToken();
 
-        if (! $jwt) {
-            throw new HttpException(401, 'Unauthorized. Token not found');
+        if (!$token) {
+            return response()->json(['error' => 'Token not provided'], Response::HTTP_UNAUTHORIZED);
         }
 
         try {
-            $decoded = $this->authService->decodeOrFail($jwt, $scopes);
-        } catch (JWTExceptionWithPayloadInterface $e) {
-            throw new HttpException(401, "Invalid Token: {$e->getMessage()}");
-        } catch (UnexpectedValueException) {
-            throw new HttpException(400, 'JWT Token malformed');
+            $decoded = JWT::decode($token, new Key(config('auth.jwt.secret'), 'HS256'));
+            $request->attributes->add(['jwt_payload' => (array)$decoded]);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Invalid token'], Response::HTTP_UNAUTHORIZED);
         }
-
-        $user = User::find($decoded->sub);
-
-        if (! $user) {
-            throw new HttpException(404, "User $decoded->sub not found");
-        }
-
-        Auth::login($user);
 
         return $next($request);
     }

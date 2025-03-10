@@ -26,22 +26,13 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\ForceJsonMiddleware::class,
         ]);
         $middleware->alias([
-            'auth' => \App\Http\Middleware\Authenticate::class,
-            'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-            'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
             'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-            'can' => \Illuminate\Auth\Middleware\Authorize::class,
-            'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
             'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
             'signed' => \App\Http\Middleware\ValidateSignature::class,
             'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-            'verifyAuthToken' => \App\Http\Middleware\VerifyAuthToken::class,
-            'verifyUserPasswordIntegration' => \App\Http\Middleware\VerifyUserPasswordIntegration::class,
-            'verifyAuthTokenIntegration' => \App\Http\Middleware\VerifyAuthTokenIntegration::class,
             'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
             'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
-            'logRequest' => \App\Http\Middleware\LogRequestMiddleware::class,
             'jwt' => \App\Http\Middleware\JwtMiddleware::class,
             'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
