@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int                             $id
@@ -20,4 +21,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Table extends Model
 {
+    protected $table = 'tables';
+
+    /**
+     * @return HasMany<SubAccount>
+     */
+    public function subAccounts(): HasMany
+    {
+        return $this->hasMany(SubAccount::class);
+    }
 }

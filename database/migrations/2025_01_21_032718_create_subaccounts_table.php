@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('table_id')->constrained('tables')->onDelete('cascade');
             $table->string('name');
             $table->decimal('total', 10, 2)->default(0.00);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
