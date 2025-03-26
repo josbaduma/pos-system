@@ -21,7 +21,7 @@ class GetSubAccountsAction
     {
         ob_clean(); // Clear any buffered output
         $mesa = Table::with(['subAccounts' => function ($query) {
-            $query->where('active', true);
+            $query->with('details', 'details.product')->where('active', true);
         }])->findOrFail($id);
 
         return $mesa->subAccounts;
