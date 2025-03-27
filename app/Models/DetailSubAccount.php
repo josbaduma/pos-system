@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class DetailSubAccount extends Model
 {
+    protected $fillable = ['sub_accounts_id', 'product_id', 'quantity', 'subtotal'];
     public function subAccount(): BelongsTo
     {
         return $this->belongsTo(SubAccount::class);
