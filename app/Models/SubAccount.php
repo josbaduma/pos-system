@@ -32,6 +32,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class SubAccount extends Model
 {
     protected $table = 'sub_accounts';
+    protected $fillable = [
+        'table_id',
+        'name',
+        'total',
+        'active',
+    ];
 
     public function details(): HasMany
     {

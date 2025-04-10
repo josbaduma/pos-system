@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Api\Controllers\Accounts\AddProductToSubAccountController;
+use App\Http\Api\Controllers\Accounts\CreateSubAccountController;
 use App\Http\Api\Controllers\Auth\LoginController;
 use App\Http\Api\Controllers\Accounts\GetSubAccountsController;
 use App\Http\Api\Controllers\Accounts\UpdateDetailQuantityController;
@@ -23,6 +25,8 @@ Route::prefix('auth')->middleware([])->group(function (): void {
 
 Route::prefix('tables')->middleware(['jwt'])->group(function (): void {
     Route::get('/', [GetTablesController::class, '__invoke'])->name('tables');
+    Route::post('/sub-accounts', [CreateSubAccountController::class, '__invoke'])->name('create-sub-accounts');
+    Route::post('/sub-accounts/{id}/products', [AddProductToSubAccountController::class, '__invoke'])->name('add-product-to-sub-accounts');
     Route::get('/sub-accounts/{id}', [GetSubAccountsController::class, '__invoke'])->name('sub-accounts');
     Route::put('/sub-accounts/{id}/detail/{detailId}', [UpdateDetailQuantityController::class, '__invoke'])->name('edit-detail-quantity');
 });
