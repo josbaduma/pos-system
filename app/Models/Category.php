@@ -25,6 +25,7 @@ class Category extends Model
     //
     public $fillable = [
         'name',
+        'is_active',
     ];
 
     public function products()

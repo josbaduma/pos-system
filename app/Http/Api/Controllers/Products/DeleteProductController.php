@@ -12,7 +12,7 @@ class DeleteProductController
     public function __invoke(int $id): JsonResponse
     {
         $product = Product::findOrFail($id);
-        $product->delete();
+        $product->update(['is_active' => false]);
 
         ob_clean(); // Clear any buffered output
         return response()->json([

@@ -9,10 +9,14 @@ use App\Http\Api\Controllers\Categories\CreateCategoryController;
 use App\Http\Api\Controllers\Categories\GetCategoriesController;
 use App\Http\Api\Controllers\Categories\UpdateCategoryController;
 use App\Http\Api\Controllers\Products\CreateProductController;
-use App\Http\Api\Controllers\Products\DeleteCategoryController;
+use App\Http\Api\Controllers\Categories\DeleteCategoryController;
 use App\Http\Api\Controllers\Products\DeleteProductController;
 use App\Http\Api\Controllers\Products\UpdateProductController;
 use App\Http\Api\Controllers\Tables\GetTablesController;
+use App\Http\Api\Controllers\Users\GetCustomersController;
+use App\Http\Api\Controllers\Users\CreateCustomerController;
+use App\Http\Api\Controllers\Users\UpdateCustomerController;
+use App\Http\Api\Controllers\Users\DeleteCustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,4 +53,11 @@ Route::prefix('products')->middleware(['jwt'])->group(function (): void {
     Route::post('/', [CreateProductController::class, '__invoke'])->name('create-product');
     Route::put('/{id}', [UpdateProductController::class, '__invoke'])->name('update-product');
     Route::delete('/{id}', [DeleteProductController::class, '__invoke'])->name('delete-product');
+});
+
+Route::prefix('customers')->middleware(['jwt'])->group(function (): void {
+    Route::get('/', [GetCustomersController::class, '__invoke'])->name('get-customers');
+    Route::post('/', [CreateCustomerController::class, '__invoke'])->name('create-customer');
+    Route::put('/{id}', [UpdateCustomerController::class, '__invoke'])->name('update-customer');
+    Route::delete('/{id}', [DeleteCustomerController::class, '__invoke'])->name('delete-customer');
 });
