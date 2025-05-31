@@ -15,6 +15,8 @@ class CreateCustomerController
         $customer = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
+            'address' => $request->get('address'),
             'password' => bcrypt($request->get('password')),
             'role' => 'customer',
         ]);
