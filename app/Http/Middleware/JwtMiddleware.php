@@ -7,7 +7,6 @@ use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class JwtMiddleware
@@ -16,13 +15,13 @@ class JwtMiddleware
     {
         $token = $request->bearerToken();
 
-        if (!$token) {
+        if (! $token) {
             return response()->json(['error' => 'Token not provided'], Response::HTTP_UNAUTHORIZED);
         }
 
         try {
             $decoded = JWT::decode($token, new Key(config('auth.jwt.secret'), 'HS256'));
-            $request->attributes->add(['jwt_payload' => (array)$decoded]);
+            $request->attributes->add(['jwt_payload' => (array) $decoded]);
         } catch (Exception $e) {
             return response()->json(['error' => 'Invalid token'], Response::HTTP_UNAUTHORIZED);
         }

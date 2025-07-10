@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Api\Controllers\Categories;
 
 use App\Http\Requests\CreateCategoryRequest;
-use Illuminate\Http\JsonResponse;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 
 class CreateCategoryController
 {
@@ -17,6 +17,7 @@ class CreateCategoryController
         ]);
 
         ob_clean(); // Clear any buffered output
+
         return response()->json([
             'message' => 'Categoría creada exitosamente.',
             'category' => $category,

@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\FlowbirdAuthMiddleware;
 use App\Http\Middleware\ForceJsonMiddleware;
 use App\Http\Middleware\LogRequestMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

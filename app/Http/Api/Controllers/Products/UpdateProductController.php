@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Api\Controllers\Products;
 
 use App\Http\Requests\UpdateProductRequest;
-use Illuminate\Http\JsonResponse;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class UpdateProductController
 {
@@ -20,6 +20,7 @@ class UpdateProductController
         ]);
 
         ob_clean(); // Clear any buffered output
+
         return response()->json([
             'message' => 'Producto actualizado exitosamente.',
             'product' => $product,

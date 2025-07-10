@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * 
- *
- * @property int $id
- * @property int $sub_accounts_id
- * @property int $product_id
- * @property int $quantity
- * @property string $subtotal
+ * @property int                             $id
+ * @property int                             $sub_accounts_id
+ * @property int                             $product_id
+ * @property int                             $quantity
+ * @property string                          $subtotal
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount query()
@@ -26,11 +25,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount whereSubAccountsId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount whereSubtotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class DetailSubAccount extends Model
 {
     protected $fillable = ['sub_accounts_id', 'product_id', 'quantity', 'subtotal'];
+
     public function subAccount(): BelongsTo
     {
         return $this->belongsTo(SubAccount::class);
@@ -38,6 +39,6 @@ class DetailSubAccount extends Model
 
     public function product(): HasOne
     {
-        return $this->hasOne(Product::class, "id", "product_id");
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

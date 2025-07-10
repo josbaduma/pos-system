@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Api\Controllers\Products;
 
 use App\Http\Requests\CreateProductRequest;
-use Illuminate\Http\JsonResponse;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class CreateProductController
 {
@@ -19,6 +19,7 @@ class CreateProductController
         ]);
 
         ob_clean(); // Clear any buffered output
+
         return response()->json([
             'message' => 'Producto creado exitosamente.',
             'product' => $product,

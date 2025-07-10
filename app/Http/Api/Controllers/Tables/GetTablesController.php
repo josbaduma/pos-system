@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Api\Controllers\Tables;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 use Src\Tables\Actions\GetTablesAction;
 
 class GetTablesController
@@ -15,6 +14,7 @@ class GetTablesController
         $tables = $getTableAction->execute();
 
         ob_clean(); // Clear any buffered output
+
         return response()->json($tables);
     }
 }

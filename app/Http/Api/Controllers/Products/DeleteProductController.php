@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Api\Controllers\Products;
 
-use Illuminate\Http\JsonResponse;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class DeleteProductController
 {
@@ -15,6 +15,7 @@ class DeleteProductController
         $product->update(['is_active' => false]);
 
         ob_clean(); // Clear any buffered output
+
         return response()->json([
             'message' => 'Producto eliminado exitosamente.',
         ]);

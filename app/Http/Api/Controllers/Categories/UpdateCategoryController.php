@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Api\Controllers\Categories;
 
 use App\Http\Requests\UpdateCategoryRequest;
-use Illuminate\Http\JsonResponse;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 
 class UpdateCategoryController
 {
@@ -18,6 +18,7 @@ class UpdateCategoryController
         ]);
 
         ob_clean(); // Clear any buffered output
+
         return response()->json([
             'message' => 'Categoría actualizada exitosamente.',
             'category' => $category,

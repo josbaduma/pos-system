@@ -9,7 +9,7 @@ use Common\DTOs\Accounts\AddProductToSubAccountDTO;
 
 class AddProductToSubAccountAction
 {
-    public function execute(AddProductToSubAccountDTO $dto): bool
+    public function execute(AddProductToSubAccountDTO $dto): DetailSubAccount|bool
     {
         // Verificar si el producto ya existe en el detalle de la subcuenta
         $existingDetail = DetailSubAccount::where('sub_accounts_id', $dto->subAccountId)
@@ -22,13 +22,13 @@ class AddProductToSubAccountAction
         }
 
         // Crear el detalle de la subcuenta
-        DetailSubAccount::create([
+        $detail = DetailSubAccount::create([
             'sub_accounts_id' => $dto->subAccountId,
             'product_id' => $dto->productId,
             'quantity' => $dto->quantity,
             'subtotal' => $dto->subtotal,
         ]);
 
-        return true;
+        return $detail;
     }
 }

@@ -6,7 +6,6 @@ namespace App\Http\Api\Controllers\Auth;
 
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 use Src\Auth\Actions\LoginAction;
 
 class LoginController
@@ -18,6 +17,7 @@ class LoginController
         $loginResponse = $loginAction->execute($email, $password);
 
         ob_clean(); // Clear any buffered output
+
         return new JsonResponse([
             'accessToken' => $loginResponse->accessToken,
             'id' => $loginResponse->id,
