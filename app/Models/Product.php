@@ -22,6 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
  *
+ * @property int $is_active
+ * @property-read \App\Models\Category $category
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereIsActive($value)
+ *
  * @mixin \Eloquent
  */
 class Product extends Model

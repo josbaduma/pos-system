@@ -18,6 +18,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereUpdatedAt($value)
  *
+ * @property int $is_active
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereIsActive($value)
+ *
  * @mixin \Eloquent
  */
 class Category extends Model

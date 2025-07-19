@@ -26,6 +26,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount whereSubtotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount whereUpdatedAt($value)
  *
+ * @property-read \App\Models\Product|null $product
+ * @property-read \App\Models\SubAccount|null $subAccount
+ *
  * @mixin \Eloquent
  */
 class DetailSubAccount extends Model

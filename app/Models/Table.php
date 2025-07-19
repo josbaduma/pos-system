@@ -17,6 +17,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Table whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Table whereUpdatedAt($value)
  *
+ * @property string $status
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubAccount> $subAccounts
+ * @property-read int|null $sub_accounts_count
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Table whereStatus($value)
+ *
  * @mixin \Eloquent
  */
 class Table extends Model
