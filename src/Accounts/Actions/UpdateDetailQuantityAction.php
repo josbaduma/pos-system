@@ -17,9 +17,12 @@ class UpdateDetailQuantityAction
     public function __construct() {}
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return Collection<GetTablesResponseDTO>
+     * Actualiza la cantidad de un detalle de subcuenta.
+     *
+     * @param int $subAccountId
+     * @param int $detailId
+     * @param int $quantity
+     * @return JsonResponse
      */
     public function execute(int $subAccountId, int $detailId, int $quantity): JsonResponse
     {
@@ -33,7 +36,7 @@ class UpdateDetailQuantityAction
                 ->firstOrFail();
 
             // Recalcular el subtotal
-            $subtotal = $detail->product->price * $quantity;
+            $subtotal = (float) $detail->product->price * $quantity;
 
             // Actualizar la cantidad y subtotal
             $detail->update([

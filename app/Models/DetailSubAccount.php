@@ -28,6 +28,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property-read \App\Models\Product|null $product
  * @property-read \App\Models\SubAccount|null $subAccount
+ * @property int|null $food_id
+ * @property-read \App\Models\Food|null $food
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailSubAccount whereFoodId($value)
  *
  * @mixin \Eloquent
  */
@@ -43,5 +47,10 @@ class DetailSubAccount extends Model
     public function product(): HasOne
     {
         return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    public function food(): BelongsTo
+    {
+        return $this->belongsTo(Food::class, 'food_id');
     }
 }

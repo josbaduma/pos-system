@@ -44,6 +44,26 @@ class BillSubAccountController
         // Marcar la subcuenta como facturada si lo necesitas
         $subAccount->update(['billed' => true]);
 
+        // Cargar relaciones necesarias para evitar problemas con 'pivot'
+        $subAccount->load('details.food.products');
+
+        foreach ($subAccount->details as $detail) {
+            $food = $detail->food;
+            $foodQuantity = $detail->quantity;
+
+            /** @var \App\Models\Product $product */
+            foreach ($food->products as $product) {
+                /** @var \Illuminate\Database\Eloquent\Relations\Pivot&object{quantity:int} $pivot */
+                $pivot = $product->pivot;
+                $usedQuantity = $pivot->quantity * $foodQuantity;
+
+                $inventory = $product->inventory;
+                if ($inventory) {
+                    $inventory->decrement('quantity', $usedQuantity);
+                }
+            }
+        }
+
         return response()->json([
             'message' => 'Subcuenta facturada exitosamente.',
             'account' => $account,

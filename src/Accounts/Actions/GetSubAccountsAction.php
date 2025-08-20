@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Src\Accounts\Actions;
 
 use App\Models\Table;
-use Common\DTOs\Tables\GetTablesResponseDTO;
 use Illuminate\Support\Collection;
 
 class GetSubAccountsAction
@@ -13,9 +12,8 @@ class GetSubAccountsAction
     public function __construct() {}
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return Collection<GetTablesResponseDTO>
+     * @param int $id
+     * @return Collection<\App\Models\SubAccount>
      */
     public function execute(int $id): Collection
     {

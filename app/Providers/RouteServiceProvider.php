@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
+     * La ruta a la que los usuarios son redirigidos después de iniciar sesión.
+     */
+    public const HOME = '/home';
+
+    /**
      * Register services.
      */
     public function register(): void

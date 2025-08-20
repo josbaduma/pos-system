@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int                             $id
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereUpdatedAt($value)
  *
  * @property int $is_active
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Product> $products
  * @property-read int|null $products_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereIsActive($value)
@@ -33,7 +34,7 @@ class Category extends Model
         'is_active',
     ];
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

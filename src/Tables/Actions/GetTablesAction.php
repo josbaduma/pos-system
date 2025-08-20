@@ -13,13 +13,11 @@ class GetTablesAction
     public function __construct() {}
 
     /**
-     * @param string $email
-     * @param string $password
      * @return Collection<GetTablesResponseDTO>
      */
     public function execute(): Collection
     {
-        $tables = Table::get()->map(function ($response) {
+        $tables = Table::get()->map(function ($response): GetTablesResponseDTO {
             return new GetTablesResponseDTO($response->id, "Mesa {$response->id}", $response->status);
         });
 

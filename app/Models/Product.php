@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int                             $id
@@ -27,6 +29,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereIsActive($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Food> $foods
+ * @property-read int|null $foods_count
+ * @property-read \App\Models\Inventory|null $inventory
+ * @property-read \Illuminate\Database\Eloquent\Relations\Pivot $pivot
+ * @property-read int $pivot_quantity
+ *
  * @mixin \Eloquent
  */
 class Product extends Model
@@ -41,5 +49,18 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function foods(): BelongsToMany
+    {
+        return $this->belongsToMany(Food::class, 'food_product')
+            ->withPivot('quantity')
+            ->withTimestamps();
+    }
+
+    // Relación uno a uno con Inventory
+    public function inventory(): HasOne
+    {
+        return $this->hasOne(Inventory::class);
     }
 }
