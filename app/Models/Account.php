@@ -36,4 +36,13 @@ class Account extends Model
     use HasFactory;
 
     protected $table = 'accounts';
+
+    protected $fillable = [
+        'customer_id',
+        'waiter_id',
+        'sub_total',
+        'discount',
+        'taxes',
+        'total',
+    ];
 }
