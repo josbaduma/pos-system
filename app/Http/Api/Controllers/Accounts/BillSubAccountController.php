@@ -83,7 +83,7 @@ class BillSubAccountController
             'active' => false, // Desactivar la subcuenta
         ]);
 
-        $this->ticketPrinter->printSale($account);
+        $this->ticketPrinter->printSale($subAccount, $total);
 
 
         return response()->json([
