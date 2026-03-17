@@ -6,12 +6,20 @@ namespace App\Http\Api\Controllers\Accounts;
 
 use App\Models\Account;
 use App\Models\SubAccount;
+use App\Services\Printer\TicketPrinter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class BillSubAccountController
 {
+    private TicketPrinter $ticketPrinter;
+
+    public function __construct(TicketPrinter $ticketPrinter)
+    {
+        $this->ticketPrinter = $ticketPrinter;
+    }
+
     public function __invoke(Request $request, int $subAccountId): JsonResponse
     {
         $subAccount = SubAccount::find($subAccountId);
@@ -74,6 +82,9 @@ class BillSubAccountController
             'billed' => true,
             'active' => false, // Desactivar la subcuenta
         ]);
+
+        $this->ticketPrinter->printSale($account);
+
 
         return response()->json([
             'message' => 'Subcuenta facturada exitosamente.',

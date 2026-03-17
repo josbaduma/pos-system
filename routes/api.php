@@ -19,6 +19,8 @@ use App\Http\Api\Controllers\Users\CreateCustomerController;
 use App\Http\Api\Controllers\Users\UpdateCustomerController;
 use App\Http\Api\Controllers\Users\DeleteCustomerController;
 use App\Http\Api\Controllers\Accounts\RemoveProductFromSubAccountController;
+use App\Http\Api\Controllers\Accounts\UpdateSubAccountController;
+use App\Http\Api\Controllers\Dashboard\GetAllSalesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +43,7 @@ Route::prefix('tables')->middleware(['jwt'])->group(function (): void {
     Route::post('/sub-accounts', [CreateSubAccountController::class, '__invoke'])->name('create-sub-accounts');
     Route::post('/sub-accounts/{id}/products', [AddProductToSubAccountController::class, '__invoke'])->name('add-product-to-sub-accounts');
     Route::get('/sub-accounts/{id}', [GetSubAccountsController::class, '__invoke'])->name('sub-accounts');
+    Route::put('/sub-accounts/{id}', [UpdateSubAccountController::class, '__invoke'])->name('edit-sub-accounts');
     Route::put('/sub-accounts/{id}/detail/{detailId}', [UpdateDetailQuantityController::class, '__invoke'])->name('edit-detail-quantity');
     Route::post('/sub-accounts/{id}/bill', [BillSubAccountController::class, '__invoke'])->name('bill-sub-account');
     Route::delete('/sub-accounts/{subaccount}/details/{detailId}', RemoveProductFromSubAccountController::class);
@@ -64,4 +67,9 @@ Route::prefix('customers')->middleware(['jwt'])->group(function (): void {
     Route::post('/', [CreateCustomerController::class, '__invoke'])->name('create-customer');
     Route::put('/{id}', [UpdateCustomerController::class, '__invoke'])->name('update-customer');
     Route::delete('/{id}', [DeleteCustomerController::class, '__invoke'])->name('delete-customer');
+});
+
+
+Route::prefix('sales')->middleware(['jwt'])->group(function (): void {
+    Route::get('/', [GetAllSalesController::class, '__invoke'])->name('get-all-sales');
 });
