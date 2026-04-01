@@ -7,7 +7,6 @@ namespace App\Http\Api\Controllers\Accounts;
 use App\Models\Account;
 use App\Models\SubAccount;
 use App\Services\Printer\TicketPrinter;
-use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -67,7 +66,7 @@ class BillSubAccountController
                 $usedQuantity = (int) $detail->quantity;
                 $inventoryCategory = $detail->product->inventoryCategory;
 
-                if ($inventoryCategory && $inventoryCategory->isNotEmpty()) {
+                if ($inventoryCategory) {
                     $existingWeeklyInventory = DB::table('weekly_inventory')
                         ->where('inventory_category_id', $detail->product->inventory_category_id)
                         ->whereDate('week_start', $weekStart)
