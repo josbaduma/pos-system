@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -41,6 +42,7 @@ class Product extends Model
 {
     public $fillable = [
         'category_id',
+        'inventory_category_id',
         'name',
         'price',
         'is_active',
@@ -51,16 +53,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function foods(): BelongsToMany
+    public function inventoryCategory(): BelongsTo
     {
-        return $this->belongsToMany(Food::class, 'food_product')
-            ->withPivot('quantity')
-            ->withTimestamps();
-    }
-
-    // Relación uno a uno con Inventory
-    public function inventory(): HasOne
-    {
-        return $this->hasOne(Inventory::class);
+        return $this->belongsTo(InventoryCategory::class);
     }
 }
