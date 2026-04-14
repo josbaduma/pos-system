@@ -30,7 +30,7 @@ class TicketPrinter
                 $price = $detail->quantity > 0 ? (float) $detail->subtotal / $detail->quantity : 0;
                 $line = sprintf(
                     "%-20s %3dx %7.2f\n",
-                    mb_substr($detail->food->name, 0, 20),
+                    mb_substr($detail->product->name, 0, 20),
                     $detail->quantity,
                     $price
                 );
