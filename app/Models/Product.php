@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int                             $id
+ * @property int|null                        $inventory_category_id
  * @property int                             $category_id
  * @property string                          $name
  * @property string                          $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $is_active
+ * @property-read \App\Models\Category $category
+ * @property-read \App\Models\InventoryCategory|null $inventoryCategory
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
@@ -20,20 +23,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereInventoryCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
- *
- * @property int $is_active
- * @property-read \App\Models\Category $category
- *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereIsActive($value)
- *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Food> $foods
- * @property-read int|null $foods_count
- * @property-read \App\Models\Inventory|null $inventory
- * @property-read \Illuminate\Database\Eloquent\Relations\Pivot $pivot
- * @property-read int $pivot_quantity
  *
  * @mixin \Eloquent
  */
@@ -41,6 +35,7 @@ class Product extends Model
 {
     public $fillable = [
         'category_id',
+        'inventory_category_id',
         'name',
         'price',
         'is_active',
@@ -51,16 +46,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function foods(): BelongsToMany
+    public function inventoryCategory(): BelongsTo
     {
-        return $this->belongsToMany(Food::class, 'food_product')
-            ->withPivot('quantity')
-            ->withTimestamps();
-    }
-
-    // Relación uno a uno con Inventory
-    public function inventory(): HasOne
-    {
-        return $this->hasOne(Inventory::class);
+        return $this->belongsTo(InventoryCategory::class);
     }
 }
